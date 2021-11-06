@@ -1,0 +1,48 @@
+server:
+  port: 8222
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: service-ucenter
+          uri: lb://service-ucenter
+          predicates:
+            - Path=/eduUcenter/**
+            - Path=/api/**
+        - id: service-cms
+          uri: lb://service-cms
+          predicates:
+            - Path=/educms/**
+        - id: service-edu
+          uri: lb://service-edu
+          predicates:
+            - Path=/eduService/**
+        - id: service-msm
+          uri: lb://service-msm
+          predicates:
+            - Path=/eduMsm/**
+        - id: service-order
+          uri: lb://service-order
+          predicates:
+            - Path=/eduOrder/**
+        - id: service-oss
+          uri: lb://service-oss
+          predicates:
+            - Path=/eduOss/**
+        - id: service-statistics
+          uri: lb://service-statistics
+          predicates:
+            - Path=/eduSta/**
+        - id: service-vod
+          uri: lb://service-vod
+          predicates:
+            - Path=/eduvod/**
